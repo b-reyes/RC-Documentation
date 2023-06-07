@@ -1,8 +1,8 @@
-## Open OnDemand _(Browser Based HPC Portal)_
+# Open OnDemand _(Browser Based HPC Portal)_
 
 CURC Open OnDemand is a browser based, integrated, single access point for all of your high performance computing (HPC) resources at CU Research Computing. CURC Open OnDemand provides a graphical interface to view, edit, download, and upload files; manage and create job templates for CURC's clusters; and access CURC interactive applications (Virtual Desktops, Matlab, and JupyterNotebooks). All of these actions are completed via a web browser and require only minimal knowledge of Linux and scheduler commands.
 
-### Getting started with CURC Open OnDemand
+## Getting started with CURC Open OnDemand
  
 To connect to CURC Open OnDemand, visit [https://ondemand.rc.colorado.edu](https://ondemand.rc.colorado.edu/). The first page of CURC Open OnDemand will bring you to a login prompt. Use your CU Research Computing credentials and Duo 2-factor authentication to login. If you need a CU Research Computing account please visit [our account request page](https://curc.readthedocs.io/en/latest/access/logging-in.html) to get started.
 
@@ -12,7 +12,7 @@ _**Notes on logging out:**_
 * You must **completely quit your browser in order for "logout" to occur**. If after reopening your browser you are still logged in, please clear your cookies. If you are on a Chromebook or Chromebox, you will need to reboot your device in order to "quit the browser" and thus "logout".  
 * **Tip: Using a "private browsing mode"** window while using OnDemand is a great way to handle "auto-logout", as closing your browser window will remove all associated cookies and session information. 
 
-### Features
+## Features
 
 When you have successfully logged into CU Open OnDemand, you will see the landing page with the following features broken into tabs along the top of the page: __Files__, __Jobs__, __Clusters__ (shell access), __Interactive Apps__, and __My Interactive Sessions__.
 
@@ -20,7 +20,7 @@ When you have successfully logged into CU Open OnDemand, you will see the landin
 
 We'll step through these features one at a time.
 
-#### Files
+### Files
 
 The _File_ menu allows you to view and operate on files in different file spaces: your _home_ directory, _projects_ directory, scratch spaces, and (if you own one or are part of a group with one) access to _PetaLibary_ allocations.
 
@@ -34,7 +34,7 @@ to transfer files to and from `/scratch/alpine` or `/rc_scratch`. Additionally, 
 
 > For additional documentation visit [OSC's File Transfer and Management help page](https://www.osc.edu/resources/online_portals/ondemand/file_transfer_and_management).
 
-#### Jobs 
+### Jobs 
 
 Jobs can be monitored, created, edited and scheduled with the job management tools under the _Jobs_ menu.
 
@@ -48,7 +48,7 @@ Jobs can be monitored, created, edited and scheduled with the job management too
 
 ![](OnDemand/job_composer.png)
 
-#### Clusters (Shell Access)
+### Clusters (Shell Access)
 
 The _Clusters_ menu provides shell access to login nodes on CURC clusters. The shell terminal is similar to many other tools that provide terminal access.
 
@@ -60,11 +60,11 @@ slurm/<cluster>` with either Alpine or Blanca.
 
 <!-- * __Blanca:__ The Blanca tab will launch a terminal that RC users can use to manually access an RC Login node. After the tab opens, type your CURC password and accept the Duo push to your phone to complete login to the terminal. To load the Blanca Slurm environment, make sure to type “module load slurm/blanca upon login. More information on using the Blanca cluster can be found [in the Blanca documentation](https://curc.readthedocs.io/en/latest/access/blanca.html). -->
 
-#### Interactive Applications Menu
+### Interactive Applications Menu
 
 The _Interactive Applications_ menu contains options to launch certain applications that have graphical user interfaces (GUIs) for interactive use on CURC clusters. Current supported applications include a __remote desktop atop the core cluster__, __MATLAB__, and __JupyterHub__ .
 
-##### Core Desktop (Remote Desktop)
+#### Core Desktop (Remote Desktop)
 
 1. When starting a Remote Desktop session, you may customize the resources allocated to the session and other characteristics of the dispatched Slurm job. The default will open a Remote Desktop with 1 node (2 cores) for 1 hour (no need to specify "Account").
 ![](OnDemand/core_launch.png)
@@ -77,7 +77,7 @@ The _Interactive Applications_ menu contains options to launch certain applicati
 ![](OnDemand/copypasta.png)
 * Closing the window will not terminate the job. You can use the “My Interactive Sessions” tab to view all open interactive sessions and terminate them.
 
-##### MATLAB
+#### MATLAB
 
 1. When starting an interactive MatLab job, you may customize the resources allocated to the session and other characteristics of the dispatched Slurm job, including the Matlab version. In most cases, the defaults will be adequate (i.e, no need to specify an account).
 ![](OnDemand/matlab_launch.png)
@@ -94,7 +94,7 @@ matlab
 
 * Closing the window will not terminate the job, you can use the “My Interactive Sessions” tab to view all open interactive sessions and terminate them.
 
-##### JupyterHub
+#### JupyterHub
 
 1. When starting an interactive JupyterHub job, you may select `JupyterHub 1 (Presets)` or `JupyterHub 2 (Custom)` from the list of servers. The first server option offers preset configurations for convenience; you may select 1 core for 12 hours or 4 cores for 4 hours. Most use cases can be accommodated by one of the presets. The `JupyterHub 1 (Presets)` server submits jobs to Alpine's `ahub` partition. This partition provides users with rapid start times, but __limits users to one Jupyter session__ (or any one job using the partition). `JupyterHub 2 (Custom)` allows you to specify the cluster, account, partition, number of hours and cores, and QoS. 
 
@@ -112,7 +112,7 @@ depends on the number of cores and time requested.
 
 For more information on running Jupyter Notebooks, [check out RC’s page on Jupyter](https://curc.readthedocs.io/en/latest/gateways/jupyterhub.html).
 
-#### My Interactive Sessions
+### My Interactive Sessions
 
 The _My Interactive Sessions_ menu will let you view and manage all of your current open Interactive applications. From this window, you can view the node/core count, status, as well as time remaining for current sessions. 
 

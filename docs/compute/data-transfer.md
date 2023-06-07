@@ -1,4 +1,4 @@
-## Data Transfer
+# Data Transfer
 
 Research Computing supports several methods of file transfer. File
 transfers from a local system can be done through a web-based
@@ -19,7 +19,7 @@ transfers and automated (passwordless) transfers.
 ---
 
 
-### Globus transfers
+## Globus transfers
 
 Globus file transfers are typically initiated through an interactive
 web application (command-line access to Globus is also available, but
@@ -58,7 +58,7 @@ GUI.
 ![](https://raw.githubusercontent.com/ResearchComputing/Documentation/4597b5079815b791944251a1645ae91180e22d59/File-Transfers/globus-image-2new.PNG)
 
 
-### Guest Collections (Globus Shared Endpoints)
+## Guest Collections (Globus Shared Endpoints)
 
 Using a Guest Collection (also known as a "Shared Endpoint"), You can share
 any file or folder that you have access to with anyone who
@@ -69,7 +69,7 @@ Collections](https://docs.globus.org/how-to/share-files/).
 Detailed information on creating Guest Collections is available [at
 docs.globus.org](https://docs.globus.org/how-to/share-files/).
 
-### Globus to AWS S3 Bucket connection
+## Globus to AWS S3 Bucket connection
 
 CU Research Computing has a trial license for Globus to AWS S3 bucket connections which allow for transfers to/from CURC resources to AWS S3 buckets using the familiar Globus web app. For those that would like to use a command-line tool rclone is also available for transfers to/from AWS S3 buckets (see [rclone example](#Rclone)). For _both_ transfer methods it is assumed you already have an AWS S3 bucket already created and available. First search for your S3 bucket in the Globus collections search bar. The first time you establish connection to your S3 bucket you will need to authenticate via 2 sources:
 
@@ -82,7 +82,7 @@ Once you have signed in one time, your AWS credentials will be stored on your in
 
 
 
-### Filezilla
+## Filezilla
 
 RC Users also have the option of connecting to RC via _Filezilla_. _Filezilla_ is a file transfer GUI application that can be used on Windows, Mac, and Linux. Simply [install Filezilla](https://filezilla-project.org/) and follow these steps:
 
@@ -106,7 +106,7 @@ __Troubleshooting:__
 - If your connection to a Data Transfer Node is not prompting a Duo notification double check you are connected to the CU Boulder Internal Network (if you are off campus VPN is required to connect to the campus internal network).
 
 
-### Secure Copy (scp)
+## Secure Copy (scp)
 
 The Secure Copy utility, `scp`, can send data to and fetch data
 from a remote server.
@@ -137,7 +137,7 @@ For more information on secure copy take a [look at some of our listed
 resources](#more-reading) or consult the scp manual page.
 
 
-### Rsync
+## Rsync
 
 While `scp` is useful for simple file copy operations, the `rsync`
 utility can be used to synchronize files and directories across two
@@ -176,7 +176,7 @@ For more information on rsync [check out some of our listed
 resources](#more-reading) or consult the rsync manual page.
 
 
-### Interactive file transfer with sftp
+## Interactive file transfer with sftp
 
 The `sftp` utility is an interactive alternative to `scp` that allows
 multiple, bi-directional transfer operations in a single
@@ -212,7 +212,7 @@ For more information on sftp [check out some of our listed
 resources](#more-reading) or consult the sftp manual page.
 
 
-### Automated scp and rsync
+## Automated scp and rsync
 
 The `scp` and `rsync` commands both allow a user to transfer files
 without needing to reenter a password. All that is required is a few
@@ -227,7 +227,7 @@ simple set up procedures to prepare your local machine.
  to perform passwordless data transfers to CURC.*
 
 
-#### Generate a local ssh key pair
+### Generate a local ssh key pair
 
 You only need to perform this step once per local system.
 
@@ -244,7 +244,7 @@ Computing). `id_ed25519` is private and **should never leave the
 system that it was generated on.**
 
 
-#### Copy the public key to CURC
+### Copy the public key to CURC
 
 You only need to perform this step once per local system.
 
@@ -265,7 +265,7 @@ order to transfer the key.
  machine.*
 
 
-#### Use `rsync` or `scp` to transfer files using an ssh key
+### Use `rsync` or `scp` to transfer files using an ssh key
 
 With an ssh key pair generated and configured in Research Computing,
 you are ready to transfer files. Key-based transfers are only
@@ -279,11 +279,11 @@ scp -v ./myfile.txt dtn.rc.int.colorado.edu:/pl/active/crdds/myfile.txt      # u
 ```
 
 ---
-### Rclone 
+## Rclone 
 
 Rclone is a command line program to manage files on cloud storage. It is a feature rich alternative to cloud vendors' web storage interfaces. [Over 40 cloud storage products](https://rclone.org/#providers) support rclone including S3 object stores, business & consumer file storage services, as well as standard transfer protocols. Rclone has powerful cloud equivalents to the unix commands rsync, cp, mv, mount, ls, ncdu, tree, rm, and cat. Rclone's familiar syntax includes shell pipeline support, and `--dry-run` protection. It can be used at the command line, in scripts or via its [API](https://rclone.org/rc/).
 
-#### What can rclone do for you?
+### What can rclone do for you?
 
 **Rclone helps you:**
 - Backup (and encrypt) files to cloud storage
@@ -294,7 +294,7 @@ Rclone is a command line program to manage files on cloud storage. It is a featu
 - Analyse and account for data held on cloud storage using [lsf](https://rclone.org/commands/rclone_lsf/), [ljson](https://rclone.org/commands/rclone_lsjson/), [size](https://rclone.org/commands/rclone_size/), [ncdu](https://rclone.org/commands/rclone_ncdu/) 
 - [Union](https://rclone.org/union/) file systems together to present multiple local and/or cloud file systems as one
 
-#### Features
+### Features
 
 - Transfers
 	- MD5, SHA1 hashes are checked at all times for file integrity
@@ -309,11 +309,11 @@ Rclone is a command line program to manage files on cloud storage. It is a featu
 - [Mount](https://rclone.org/commands/rclone_mount/) your cloud storage as a network disk
 - [Serve](https://rclone.org/commands/rclone_serve/) local or remote files over HTTP/WebDav/FTP/SFTP/dlna
 
-#### How to use rclone with CURC
+### How to use rclone with CURC
 
 Since rclone is intended to be used with cloud technologies, any server that can use cloud protocols can use rclone to transfer data. Rclone can be used on the CURC system to connect and transfer data to/from cloud-based storage (e.g. google drive or AWS S3 buckets) as well as locally from your machine to connect to RC storage via ssh/sftp connection.
 
-##### Step 1: Make sure rclone is installed
+#### Step 1: Make sure rclone is installed
 
 **On a laptop or desktop:** Before connecting CURC storage resources to your local machine, you will need to first [download](https://rclone.org/downloads/) and [install](https://rclone.org/install/) it according to your system from the rclone [website](https://rclone.org/).
 
@@ -326,7 +326,7 @@ $ sinteractive 			# Access an Alpine compute node via an interactive job
 $ module load rclone/1.58.0 	# Load rclone module
 ```
 
-##### Step 2: Configuring rclone remote connections 
+#### Step 2: Configuring rclone remote connections 
 
 Before using rclone you must set up a configuration file that details the information about the remote server you want to transfer data to. There are two different ways of setting up your rclone configuration file:
 
@@ -542,7 +542,7 @@ $ rclone ls aws_s3:
 Congratulations! You now have a remote rclone connection set up.
 
 
-##### Step 3: Basic usage commands for rclone
+#### Step 3: Basic usage commands for rclone
 
 The basic syntax goes as follows rclone `<function> <source> <destination endpoint>:<bucket>`.
 
@@ -567,7 +567,7 @@ $ rclone copy rclonetest.csv aws_s3:testbucket/
 
 --- 
 
-### CU Large File Transfer service
+## CU Large File Transfer service
 
 OIT also offers a [file transfer
 service](http://oit.colorado.edu/safe-transfer) with a web interface
@@ -575,7 +575,7 @@ which provides a good way to transfer files to collaborators. Files
 are uploaded to a server and a link to download the file can be
 emailed to an on- or off-campus user.
 
-### DTN SSH Host Keys
+## DTN SSH Host Keys
 
 The first time you use `scp`, `sftp`, or `ssh` with a DTN you will be
 asked to verify the host key. You can refer to the keys published here
@@ -608,7 +608,7 @@ Fingerprint: `2048 SHA256:6ZOTX25SbIBaH2HU3VClSD5GpdScFkeyzl/v4uWpBGI no comment
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0Pp4D+GvSYfq0GB+dAEBQcKJTkeTkJ5bQlMPzkh1N8Zs1koh3fKymmV6FuMI5chuvP6pnmWogbwaCHuarF8pMKAIiYC6QHGKkMODFeAO1V0+ZBmRpTO0PdkqNCV04Y76lCnYH+VD2/gClqenTcEVS8OD7WZYz9YhlevXFuw/4aQGCMmU0OdpKsJ1bAEGXDGrBasOXRV5uekbX6WrTYphr/ayPOjqltlTfP4/2qhh2YCQhOEH+cKGIj2Tg7asP3PB/7VFqRPKsN7nLrGCYD8tcdmvi6J0A0hmab1zgxYunxbEq+XSlN3gyT4WEy3qb1zu60IWRO4rJbrPD/uParzN3
 ```
 
-### More reading
+## More reading
 
 * [Indiana University Tutorial on SFTP](https://kb.iu.edu/d/akqg)
 * [A Cloud Guru's Tutorial on SSH and SCP](https://acloudguru.com/blog/engineering/ssh-and-scp-howto-tips-tricks)

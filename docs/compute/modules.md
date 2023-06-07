@@ -1,4 +1,4 @@
-## The Modules System
+# The Modules System
 
 Research Computing uses a module system to load most software into a
 user's environment. Most software is not accessible by default and
@@ -10,7 +10,7 @@ between different versions.
 
 ---
 
-### The `module` Command
+## The `module` Command
 
 **_Modules should be loaded in job scripts, interactive jobs, or on
 compile nodes only. They should not be loaded when on one of the
@@ -67,7 +67,7 @@ module spider some_module
 # example: "module spider openmpi"
 ```
 
-### Subcommands
+## Subcommands
 
 The `module` command has a variety of subcommands, outlined in the
 table below. You may shorten the command to `ml`, but the shortened
@@ -86,7 +86,7 @@ Command                 | Shortened Command            | Description  | Example 
 `module restore <name>`    | `ml restore <name>`  | Restore a state of saved modules. In this example, we are restoring all modules that were saved as the collection called `foo` | `module restore foo`
 `module help`           |                   | Find information about additional module sub-commands. | `module help`
 
-### Loading Modules in a Job Script
+## Loading Modules in a Job Script
 
 Loading a module will enable access to the modules 
 described software package. Additionally, modules 

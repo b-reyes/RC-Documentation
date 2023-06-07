@@ -1,10 +1,10 @@
-## Monitoring Resources
+# Monitoring Resources
 
 CU Research Computing has two main tools which can help users monitor their HPC resources:
 * [Slurmtools](#slurmtools): A [module](./modules.html) that loads a collection of functions to assess recent usage statistics
 * [XDMoD](#xdmod): A web portal for viewing metrics at the system, partition, and user-levels.
 
-### Slurmtools
+## Slurmtools
 Slurmtools is a collection of helper scripts for everyday use of the [SLURM](https://slurm.schedmd.com/overview.html) job scheduler. Slurmtools can be loaded in as a module from any node (including login nodes). Slurmtools can help us understand the following questions:
 * How many core hours (SUs) have I used recently?
 * Who is using all of the SUs on my group's account?
@@ -12,19 +12,19 @@ Slurmtools is a collection of helper scripts for everyday use of the [SLURM](htt
 * What is my priority?
 * How efficient are my jobs?
 
-#### __Step 1__: Log in
+### __Step 1__: Log in
 If you have a CURC account, login as you [normally would](../access/logging-in.html) using your identikey and Duo from a terminal: 
 
 ```bash
 $ ssh ralphie@login.rc.colorado.edu
 ```
 
-#### __Step 2__: Load the slurm module for the HPC resource you want to query metrics about (Blanca, Alpine):
+### __Step 2__: Load the slurm module for the HPC resource you want to query metrics about (Blanca, Alpine):
 ```bash
 $ module load slurm/alpine # substitute alpine for blanca
 ```
 
-#### __Step 3__: Load the `slurmtools` module
+### __Step 3__: Load the `slurmtools` module
 ```bash
 $ module load slurmtools
 ```
@@ -49,7 +49,7 @@ You have sucessfully loaded slurmtools, a collection of functions
  Type any command without arguments for usage instructions
  ```
 
-#### __Step 4__: Get some metrics!
+### __Step 4__: Get some metrics!
 
 ___How many Service Units (core hours) have I used?___
 
@@ -253,7 +253,7 @@ This output tells us that:
 
 This information is also sent to users who include the `--mail` directive in jobs.
 
-### XDMoD 
+## XDMoD 
  
 XDMoD is a web portal for viewing metrics at the system-, partition- and user-levels.
 
@@ -263,7 +263,7 @@ __Getting started with XDMoD__
 
 All CURC users have access to XDMoD (CU Boulder, CSU and RMACC). At this time, login is only supported for CU Boulder users.  Non-CU Boulder users may still query all of the statistics available to CU Boulder users, they just won't have the ability to personalize metrics. 
 
-#### Step 1: Navigate to the CURC XDMoD instance
+### Step 1: Navigate to the CURC XDMoD instance
 
 In your browser navigate to [https://xdmod.rc.colorado.edu](https://xdmod.rc.colorado.edu). Upon reaching there you will see a summary screen similar to the following image.
 
@@ -271,7 +271,7 @@ In your browser navigate to [https://xdmod.rc.colorado.edu](https://xdmod.rc.col
 
 This screen provides some "quick stats" and summary plots that address some of the most common user questions, such as average wait times and recent resource usage by system (Alpine or Blanca) and partition.  These metrics may be all you need. If you want to personalize metrics you can login with your CURC username and password (*currently only supported for CU Boulder users*).
 
-#### Step 2: Login (CU Boulder users only)
+### Step 2: Login (CU Boulder users only)
 
 Choose the __Sign In__ option near the upper left of the screen.  This will initiate a pop-up window that gives you the option to _"Sign in with CU Boulder Research Computing"_ or _"Sign in with a local XDMoD account"_. 
 
@@ -279,7 +279,7 @@ Choose the __Sign In__ option near the upper left of the screen.  This will init
 
 Choose the option for _"Sign in with CU Boulder Research Computing"_ and enter your CURC username and password. The portal uses 2-factor authentication, so you will need to accept the Duo push to your phone to complete login.
 
-#### Step 3: Familiarize yourself with XDMoD
+### Step 3: Familiarize yourself with XDMoD
 
 Whether or not you login, you'll start on the _"Summary"_ screen.  
 
@@ -300,11 +300,11 @@ _** - only available to users who are logged in._
 >	* a "CPU Hour" is a "core hour" (e.g., for a single job, this would be the number of `ntasks` a user specifies in their job script multipled by how long the job runs)
 >	* a "PI" is a project account (e.g., `ucb-general` or `ucb124_asc1`)
 
-#### Step 4: Become a pro!
+### Step 4: Become a pro!
 
 XDMoD can query a seemingly endless number of metrics, more than could ever be described in this documentation.  To learn how to query specific metrics, customize your views, etc., please refer to the [XDMoD documentation](https://xdmod.rc.colorado.edu/user_manual/index.php).
 
-#### Example use case
+### Example use case
 
 Let's say you want to see how many core hours you project account has used over time, including the usage by user.  
 
