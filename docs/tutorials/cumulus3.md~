@@ -1,22 +1,23 @@
-## CUmulus-Slurm Integration
 
-One useful application of CUmulus is the ability to integrate your VMs with CU Research Computing High Performance Computing (HPC) resources. HPC compute is typically time-limited (at CURC 24 hours for regular joband 7 days long job) due finite resources and user competition for those resources. One way to deal with this problem is to schedule your jobs over time (e.g. by using cronjobs) though this isn't always practical for more complex workflows. Using authentication keys (in this case Java Web Tokens or JWTs) you can setup a connection from your CUmulus instance to CURC HPC and schedule jobs remotely to set up more complex workflow specific pipelines. 
+
+
+## CUmulus integration with CURC HPC 
+
+One potentially useful application of CUmulus is the ability to integrate your VMs with CU Research Computing High Performance Computing (HPC) resources. HPC compute is typically time-limited (at CURC 24 hours for regular job and 7 days long job) due to finite resources and user competition for those resources. One way to deal with this problem is to schedule your jobs over time (e.g. by using cronjobs) though this isn't always practical for more complex workflows. Using authentication keys (in this case Java Web Tokens or JWTs) you can setup a connection from your CUmulus instance to CURC HPC and schedule jobs remotely to set up more complex workflow specific pipelines. 
 
 We have documented the process for an **Ubuntu 20.04 instance on CUmulus connecting to the CURC Blanca cluster**. Below is an outline with links to specific sections:
 1. Create your CUmulus instance
 2. Install SLURM on CUmlus Instance
 3. Configure SLURM in CUmulus
-4. Generate Java Web Token
-5. Submit Job
-
-Follow the docs below for general HPC integration or follow our [step-by-step tutorial](https://github.com/ResearchComputing/CUmulus_tutorials/tree/main/tutorial3).
+4. Generate Java Web Token (JWT) in CURC HPC
+5. Submit your job from your CUmulus instance 
 
 ### Instructions for Ubuntu 20.04:
 
 ---
-#### Part 1: Create your Instance
+####  Part 1 Create your CUmlus instance:
 ---
-The first thing we will need to do is create a Ubuntu 20.04 CUmulus instance. Log in to the [CUmlus portal](https://cumulus.rc.colorado.edu) and follow our [docs](./cumulus.md) to create a CUmulus instance with the following specifications: 
+The first thing we will need to do is create a Ubuntu 20.04 CUmulus instance. Log in to the [CUmlus portal](https://cumulus.rc.colorado.edu) and follow our [tutorial1](./cumulus1) to create a CUmulus instance with the following specifications: 
 * Image: Ubuntu 20.04 
 * Flavor: 
 * Network: 
@@ -39,9 +40,9 @@ The second thing we'll need to do is install SLURM on our CUmulus instance. To d
 	$ sudo apt-get update
 	$ sudo apt install -y libmysqlclient-dev libjwt-dev munge gcc make
 	```
-* **Install SLURM**. It looks like there's a lot going on with this step, but all we're doing is downloading SLURM from github to the `/opt` directory of your instance, configuring the compilation to include Java Web Tokens (JWT) functionaliy, and then compiling and installing SLURM. Note that it is **VERY IMPORTANT** that the SLURM version on your CUmulus instance matches the CURC HPC version otherwise it will not connect. 
+* **Install SLURM**. It looks like there's a lot going on with this step, but all we're doing is downloading SLURM from github to the `/opt` directory of your instance, configuring the compilation to include Java Web Tokens (JWT) functionality, and then compiling and installing SLURM. Note that it is **VERY IMPORTANT** that the SLURM version on your CUmulus instance matches the CURC HPC version otherwise it will not connect. 
 
-	> You can check the SLURM version on CURC HPC resources by loading your cluster specific SLURM module from a login node (either `module load slurm/blanca` or `module load slurm/alpine`) then checking the version of a SLURM command (e.g. `sbatch --version`). 
+	> You can check the SLURM version on CURC HPC resources by loading your cluster specific SLURM module from a login node (either `module load slurm/summit`, `module load slurm/blanca`, or `module load slurm/alpine`) then checking the version of a SLURM command (e.g. `sbatch --version`). 
 
 	> In this example we're using the 20.02.4 SLURM version and specifying it with git clone branch flag (`-b`)
 	```
@@ -95,10 +96,10 @@ Now that we have SLURM installed we can start to configure our instance to make 
 	```
 
 ---
-####  Part 4. Generate Java Web Token
+####  Part 4. Generate Java Web Token (JWT) in CURC HPC 
 ---
 * Next we will genrate the Java Web Token on a CURC login node. Keep in mind that these tokens are generated with an expiration. The max time CURC systems will keep a JWT is **#TODO**. Note the JWT output in order submit jobs.
-	> Note: In this example we are genrating this token on the Blanca cluster 
+	> Note: In this example we are generating this token on the Blanca cluster 
 	```
 	$ module load slurm/blanca
 	$ scontrol token lifespan=72000 #token with 2 hour duration
@@ -106,7 +107,7 @@ Now that we have SLURM installed we can start to configure our instance to make 
 	```
 
 ---
-####  Part 5. Submit Job
+####  Part 5. Submit your job from your CUmulus instance 
 ---
 Our CUmulus instance is now configured to submit jobs to CURC HPC resources. When we ssh to our instance we are (likely) logged in as the admin user. We need to log in to the user we created in the previous step to submit jobs so CURC HPC will recognize the incoming request.
 
@@ -127,11 +128,9 @@ Our CUmulus instance is now configured to submit jobs to CURC HPC resources. Whe
 	```
 	> Note: you can use the `--chdir` flag to direct the output to an directory you have write access to.
 
-You have now successfully connected your CUmulus instance to CURC HPC resources!
+You have now successfully connected your CUmulus instance to CURC HPC resources! From this point you have a number of ways to integrate this connection into your workflow:
+* Pass raw data to CURC HPC resources for post-processing once it becomes available.
 
-<br>
 
-
-The CU Research Computing group would like to acknowledge support of this project from the National Science Foundation (OAC-1925766).
-
-Couldn't find what you need? [Provide feedback on these docs!](https://forms.gle/bSQEeFrdvyeQWPtW9)
+		
+> This work has been funded in part by the National Science Foundation under grant OAC-1925766
