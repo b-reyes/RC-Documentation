@@ -8,7 +8,6 @@ September 30, 2022. The full sun-setting of the Summit system is March 1, 2023.
 .. image:: ./images/alpine_summit_timeline.png
   :width: 400
   :align: center
-
   :alt: Summit-Alpine timeline
 
 
