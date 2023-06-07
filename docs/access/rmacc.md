@@ -4,7 +4,7 @@ _Note to existing account holders: As of September 1, 2022, Rocky Mountain Advan
 unable to use the XSEDE SSO Hub to log in to CURC systems. Users will instead use Open OnDemand to access RMACC resources._
 
 
-### Requesting an RMACC Account on CURC Resources
+## Requesting an RMACC Account on CURC Resources
 
 Step 1: Create an [ACCESS-CI](https://access-ci.org/) account in the ACCESS user portal [Note: If you already have an XSEDE or ACCESS account, please do not create another 
 one -- just go to step 2].

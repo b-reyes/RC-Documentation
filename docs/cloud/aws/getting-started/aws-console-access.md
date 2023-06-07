@@ -1,11 +1,11 @@
-## Accessing the AWS Management Console
+# Accessing the AWS Management Console
 
-### Prerequisite
+## Prerequisite
 
 The <a href="https://oit.colorado.edu/services/identity-access-management/multi-factor-remote-access" target="_blank">DUO Multi-Factor Remote Access</a> (MFA) app is installed and enrolled.
 Visit OIT's <a href="https://oit.colorado.edu/services/identity-access-management/multi-factor-remote-access" target="_blank">DUO Multi-Factor Remote Access</a> documentation to install and enroll MFA.
 
-### Single Sign-On
+## Single Sign-On
 
 Users access the <a href="http://bit.ly/OIT-AWS" target="_blank">AWS Management Console</a> using their <a href="https://oit.colorado.edu/services/identity-access-management/identikey" target="_blank">CU IdentiKey</a>.
 The Single Sign-On (SSO) URL is <a href="http://bit.ly/OIT-AWS" target="_blank">http://bit.ly/OIT-AWS </a>.

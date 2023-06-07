@@ -1,10 +1,10 @@
-## Creating an Instance
+# Creating an Instance
 
-### Instances
+## Instances
 
 Instances are virtual machines that run inside the cloud. More simply, an instance is just a digital version of a physical computer. Instances are the basic "unit" of compute you will use within CUmulus. Once you have requested a CUmulus allocation, you will be provided with a "project" which contains the total resources you requested. Within your project, you can spin up a finite number of instances (determined by your allocation), each of which can be thought of as a computer. 
 
-### Navigating to your Instances
+## Navigating to your Instances
 
 Projects are managed through the CUmulus Web Portal (Horizon) which is hosted at https://cumulus.rc.colorado.edu. First, navigate to the web portal and autenticate using your institution's credentials (e.g, University of Colorado Boulder).
 
@@ -17,14 +17,14 @@ Projects are managed through the CUmulus Web Portal (Horizon) which is hosted at
 
 To create an instance you must first specify the resources you wish to allocate from your project.
 
-### Create New Instance
+## Create New Instance
 
 Follow the docs below for general instance creation or follow our [step-by-step tutorial](https://github.com/ResearchComputing/CUmulus_tutorials/tree/main/tutorial1).
 
-#### Launch Instance  
+### Launch Instance  
 Click on `Launch Instance` button on the top bar from the "Instances" page (step 4 above). This will bring up the instance launcher which will guide you in creating your new instance by selecting your operating system, allocating resources, choosing security groups, and adding security keys. We'll go through each step one at a time:
 
-##### Step 1: Details 
+#### Step 1: Details 
 * Fill out the instance _name_ and _description_
 	> _Availability zone_ and _count_ can be left as default. This value is set to the availability zone given by the cloud provider (for example, us-west or apac-south).
 
@@ -33,7 +33,7 @@ Click on `Launch Instance` button on the top bar from the "Instances" page (step
 > _**Note:**_ if launching Windows Server, the hostname will be truncated if greater than 15 characters in the OS
 * click `Next` when done to go to the ___Source___ screen.
 
-##### Step 2: Source
+#### Step 2: Source
 Select boot source. 
 * Choose an operating system from the list of images CURC provides.
 * Choose a storage volume size 
@@ -46,7 +46,7 @@ Select boot source.
 * click `Next` when done to go to the ___Flavor___ screen.
 
 
-##### Step 3: Flavor 
+#### Step 3: Flavor 
 A flavor defines the compute, memory, and storage capacity of our instance.
 
 * Choose the most appropriate sizing for your use case from a list of pre-selected resources
@@ -58,7 +58,7 @@ A flavor defines the compute, memory, and storage capacity of our instance.
 
 * click `Next` when done to go to the ___Networks___ screen.
 
-##### Step 4: Network & Network Ports
+#### Step 4: Network & Network Ports
 * Select a project network, which determines routability of either a public/internet or campus/internal floating IP.
 * click `Next` when done to go to the ___Ports___ screen.
   * Ports provide extra communication channels to your instances. 
@@ -69,7 +69,7 @@ A flavor defines the compute, memory, and storage capacity of our instance.
 * click `Next` when done to go to the ___Security Groups___ screen.
 
 
-##### Step 5: Security Groups
+#### Step 5: Security Groups
 Security Groups act as a virtual firewall for your instance to control inbound and outbound traffic. Select the secrity groups to launch the instance in (e.g. ssh-restricted in order to ssh into your vm, icmp to ping your instance).
 
 * Security groups act at the instance level and can be changed after instance creation.
@@ -78,7 +78,7 @@ Security Groups act as a virtual firewall for your instance to control inbound a
 
 * click `Next` when done to go to the ___Key Pair___ screen.
 
-##### Step 6: Key Pairs
+#### Step 6: Key Pairs
 * A key pair allows you to SSH into your new instance.
 * You may select an existing key pair, import a key pair, or generate a new key pair.
   * _Tip: it is often easiest to create a keypair in a terminal on your local machine and import it: https://www.ssh.com/academy/ssh/public-key-authentication_ 
@@ -99,16 +99,16 @@ Security Groups act as a virtual firewall for your instance to control inbound a
 
 * click `Next` when done to go to the ___Configuration___ screen.
 
-##### Step 7: Configuration, Server Group, Scheduler Hints, and Metadata
+#### Step 7: Configuration, Server Group, Scheduler Hints, and Metadata
 * For the remaining screens -- _Configuration_, _Server Group_, _Scheduler Hints_, and _Metadata_ -- leave these as defaults, as they are extra, optional configuration for the instances.
 
 ![](cumulus/instance_config.png)
 
-##### Step 9: Launch the instance
+#### Step 9: Launch the instance
 Your instance will take a few minutes to finish provisioning. Once it's finished, your instance will be available from the "Instance" sub-tab.
 
 
-##### Step 10: (Optional) Associate Floating IP to instance
+#### Step 10: (Optional) Associate Floating IP to instance
 * You can now associate a Floating IP to enable access to the instance from outside of the CU network.
   * On the right hand side of the newly created instance, choose `Associate Floating IP` under the `Actions` dropdown
   
@@ -124,7 +124,7 @@ Associate the IP Address to your instance
 
 > Note: If an instance is terminated, the floating IP will be disassociated but remain with the project as an available address. If the floating IP is  it is returned to the SN IP pool and can be difficult to re-allocate if the same address is desired.
 
-##### Step 11: Logging into your Instance
+#### Step 11: Logging into your Instance
 
 At a minimum, you'll need to login to your instance via `ssh` to install the software you'll be using. Other reasons to login to the instance include to stop or start services, associate a domain name with your IP, run your software, troubleshoot problems, etc. You are essentially the "system administrator" of your own instance.
 
@@ -151,7 +151,7 @@ $ sudo su -
 $ passwd root
 ```
 
-#### Get the default DNS name (optional)
+### Get the default DNS name (optional)
 
 1. All Floating IP's have a default A record. This can optionally be used in place of an IP address.
 2. Perform a reverse lookup:
@@ -161,7 +161,7 @@ $ passwd root
 3. If a specific record is desired, contact NEO via <oithelp@colorado.edu>.
 
 
-#### Troubleshooting
+### Troubleshooting
 * If no available addresses are allocated to the project, you can allocate one by clicking the "+" button:
 
 ![](cumulus/allocate_floating_ip.png)
