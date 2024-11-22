@@ -1,5 +1,10 @@
 # Alpine Software
 
+```{eval-rst}
+.. raw:: html
+    :file: ../../../module_tree/output.html
+```
+
 ## Software Installed on Alpine
 This list includes the software applications, compilers, libaries, and software development kits (SDKs) installed as modules on CURC Alpine. 
 

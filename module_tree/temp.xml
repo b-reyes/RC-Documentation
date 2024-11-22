@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tree>
+  <directory name="/curc/sw/alpine-modules/udep">
+    <directory name="/curc/sw/alpine-modules/udep/bio">
+      <directory name="/curc/sw/alpine-modules/udep/bio/alphafold">
+        <file name="/curc/sw/alpine-modules/udep/bio/alphafold/2.2.0.lua"></file>
+        <file name="/curc/sw/alpine-modules/udep/bio/alphafold/2.3.1.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/bamtools">
+        <file name="/curc/sw/alpine-modules/udep/bio/bamtools/2.5.2.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/bbtools">
+        <file name="/curc/sw/alpine-modules/udep/bio/bbtools/39.01.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/bcftools">
+        <file name="/curc/sw/alpine-modules/udep/bio/bcftools/1.16.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/bedtools">
+        <file name="/curc/sw/alpine-modules/udep/bio/bedtools/2.29.1.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/bowtie2">
+        <file name="/curc/sw/alpine-modules/udep/bio/bowtie2/2.5.0.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/bwa">
+        <file name="/curc/sw/alpine-modules/udep/bio/bwa/0.7.17.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/cellranger">
+        <file name="/curc/sw/alpine-modules/udep/bio/cellranger/7.1.0.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/cutadapt">
+        <file name="/curc/sw/alpine-modules/udep/bio/cutadapt/4.2.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/fastqc">
+        <file name="/curc/sw/alpine-modules/udep/bio/fastqc/0.11.9.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/gatk">
+        <file name="/curc/sw/alpine-modules/udep/bio/gatk/4.3.0.0.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/homer">
+        <file name="/curc/sw/alpine-modules/udep/bio/homer/4.11.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/htslib">
+        <file name="/curc/sw/alpine-modules/udep/bio/htslib/1.16.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/multiqc">
+        <file name="/curc/sw/alpine-modules/udep/bio/multiqc/1.14.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/nextflow">
+        <file name="/curc/sw/alpine-modules/udep/bio/nextflow/22.10.6.lua"></file>
+        <file name="/curc/sw/alpine-modules/udep/bio/nextflow/23.04.lua"></file>
+        <file name="/curc/sw/alpine-modules/udep/bio/nextflow/24.04.4.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/picard">
+        <file name="/curc/sw/alpine-modules/udep/bio/picard/2.27.5.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/plink2">
+        <file name="/curc/sw/alpine-modules/udep/bio/plink2/2.00a2.3.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/qiime2">
+        <file name="/curc/sw/alpine-modules/udep/bio/qiime2/2023.5.lua"></file>
+        <file name="/curc/sw/alpine-modules/udep/bio/qiime2/2024.2_amplicon.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/samtools">
+        <file name="/curc/sw/alpine-modules/udep/bio/samtools/1.16.1.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/sra-toolkit">
+        <file name="/curc/sw/alpine-modules/udep/bio/sra-toolkit/3.0.0.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/star">
+        <file name="/curc/sw/alpine-modules/udep/bio/star/2.7.10b.lua"></file>
+      </directory>
+      <directory name="/curc/sw/alpine-modules/udep/bio/trimmomatic">
+        <file name="/curc/sw/alpine-modules/udep/bio/trimmomatic/0.39.lua"></file>
+      </directory>
+    </directory>
+    <directory name="/curc/sw/alpine-modules/udep/phys">
+    </directory>
+  </directory>
+</tree>
