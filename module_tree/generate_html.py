@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 
 # Function to recursively convert XML to HTML with dropdowns
 def xml_to_html(element):
+
     # Skip the root 'tree' and 'link' elements from the HTML output
     if element.tag == 'tree' or (element.tag == 'link' and 'name' in element.attrib):
         # We simply skip over these elements and don't add them to the HTML
@@ -24,6 +25,9 @@ def xml_to_html(element):
         html += '<ul>'  # Start an unordered list for the child elements
         for child in children:
             html += f'<li>{xml_to_html(child)}</li>'  # Recursively create a <li> for each child
+            if child.tag == "file":
+                # TODO: replace this with the help information. 
+                html += f'<p> Blah </p>'
         html += '</ul>'  # End the unordered list
     
     html += '</details>'  # Close the details block
@@ -80,8 +84,8 @@ def convert_xml_to_html(xml_file, output_html_file):
     print(f"HTML content has been saved to {output_html_file}")
 
 # Example usage
-# input_xml_file = 'full_module_tree.xml'  # Replace with the path to your XML file
-input_xml_file = 'temp.xml'  # Replace with the path to your XML file
+input_xml_file = 'full_module_tree.xml'  # Replace with the path to your XML file
+# input_xml_file = 'temp.xml'  # Replace with the path to your XML file
 output_html_file = 'output.html'  # Output HTML file
 
 # Convert the XML to HTML
