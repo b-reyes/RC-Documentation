@@ -29,6 +29,9 @@ myst_substitutions = {
    'amc_alpine_total_nodes': '37',
    'csu_alpine_total_nodes': '77',
 
+   # Alpine hardware page general substitutions
+   'alpine_standard_ram_per_core': '3.8',
+
    # Alpine hardware page, hardware summary section substitutions
    ## UCB contributions 
    'alpine_ucb_total_128_core_256GB_cpu_nodes': '16',
@@ -53,8 +56,7 @@ myst_substitutions = {
    'alpine_csu_total_32_core_256GB_cpu_nodes': '49',
 
    # Alpine hardware page, partition section substitutions
-   'alpine_total_amilan_nodes': '387',
-   'alpine_total_amilan128c_nodes': '16',
+   'alpine_total_amilan_nodes': '403',
    'alpine_total_ami100_nodes': '7',
    'alpine_total_aa100_nodes': '11',
    'alpine_total_al40_nodes': '3',
