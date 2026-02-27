@@ -39,11 +39,11 @@ All Alpine nodes are available to all users. For full details about node access,
 
 | Count & Type          | Partition | Processor        | Sockets | Cores (total) | Threads per Core | RAM per Core (GB) | GPU type    | GPU count | Local Disk Capacity & Type | Fabric                                       |
 | --------------------- | ------------------- | ---------------- | :-------: | :-------------: | :------------: | :-------------: | ----------- | :---------: | -------------------------- | -------------------------------------------- |
-| {{ alpine_amc_total_64_core_256GB_cpu_nodes }} Milan General CPU  | amc, amilan         | x86_64 AMD Milan | 1       | 64            | 1            |  {{ alpine_standard_ram_per_core }}           | N/A         | 0         | 416G SSD                   | 2x25 Gb Ethernet +RoCE                       |
-| {{ alpine_amc_total_64_core_1TB_cpu_nodes }} Milan High-Memory   | amc, amem           | x86_64 AMD Milan | 1       | 64            | 1            |  16          | N/A         | 0         | 416G SSD                   | 2x25 Gb Ethernet +RoCE                       | 
-| {{ alpine_amc_total_128_core_2TB_cpu_nodes }} Milan High-Memory   | amc, amem           | x86_64 AMD Milan | 2       | 128           | 1            |  16           | N/A         | 0         |  70G SSD                   | HDR-100 InfiniBand (200Gb inter-node fabric) | 
-| {{ alpine_amc_total_a100_gpu_nodes }} Milan NVIDIA GPU    | amc, aa100          | x86_64 AMD Milan | 1       | 64            | 1            |  {{ alpine_standard_ram_per_core }}           | NVIDIA A100 | 3         | 416G SSD                   | 2x25 Gb Ethernet +RoCE                       |
-| {{ alpine_amc_total_l40_gpu_nodes }} Milan NVIDIA GPU    | amc, al40           | x86_64 AMD Milan | 2       | 64            | 1            |  {{ alpine_standard_ram_per_core }}           | NVIDIA L40  | 3         | 416G SSD                   | 2x25 Gb Ethernet +RoCE                       | 
+| {{ alpine_amc_total_64_core_256GB_cpu_nodes }} Milan General CPU  | amilan         | x86_64 AMD Milan | 1       | 64            | 1            |  {{ alpine_standard_ram_per_core }}           | N/A         | 0         | 416G SSD                   | 2x25 Gb Ethernet +RoCE                       |
+| {{ alpine_amc_total_64_core_1TB_cpu_nodes }} Milan High-Memory   | amem           | x86_64 AMD Milan | 1       | 64            | 1            |  16          | N/A         | 0         | 416G SSD                   | 2x25 Gb Ethernet +RoCE                       | 
+| {{ alpine_amc_total_128_core_2TB_cpu_nodes }} Milan High-Memory   | amem           | x86_64 AMD Milan | 2       | 128           | 1            |  16           | N/A         | 0         |  70G SSD                   | HDR-100 InfiniBand (200Gb inter-node fabric) | 
+| {{ alpine_amc_total_a100_gpu_nodes }} Milan NVIDIA GPU    | aa100          | x86_64 AMD Milan | 1       | 64            | 1            |  {{ alpine_standard_ram_per_core }}           | NVIDIA A100 | 3         | 416G SSD                   | 2x25 Gb Ethernet +RoCE                       |
+| {{ alpine_amc_total_l40_gpu_nodes }} Milan NVIDIA GPU    | al40           | x86_64 AMD Milan | 2       | 64            | 1            |  {{ alpine_standard_ram_per_core }}           | NVIDIA L40  | 3         | 416G SSD                   | 2x25 Gb Ethernet +RoCE                       | 
 
 :::
 
@@ -56,8 +56,8 @@ All Alpine nodes are available to all users. For full details about node access,
 
 | Count & Type          | Partition | Processor        | Sockets | Cores (total) | Threads per Core | RAM per Core (GB) | GPU type    | GPU count | Local Disk Capacity & Type | Fabric                                       |
 | --------------------- | ------------------- | ---------------- | :-------: | :-------------: | :------------: | :-------------: | ----------- | :---------: | -------------------------- | -------------------------------------------- |
-| {{ alpine_csu_total_48_core_256GB_cpu_nodes }} Milan General CPU  | csu, amilan         | x86_64 AMD Milan | 2       | 48            | 1            |  {{ alpine_standard_ram_per_core }}           | N/A         | 0         | 416G SSD                   | HDR-100 InfiniBand (200Gb inter-node fabric) |
-| {{ alpine_csu_total_32_core_256GB_cpu_nodes }} Milan General CPU  | csu, amilan         | x86_64 AMD Milan | 2       | 32            | 1            |  {{ alpine_standard_ram_per_core }}           | N/A         | 0         | 416G SSD                   | 2x25 Gb Ethernet +RoCE                       | 
+| {{ alpine_csu_total_48_core_256GB_cpu_nodes }} Milan General CPU  | amilan         | x86_64 AMD Milan | 2       | 48            | 1            |  {{ alpine_standard_ram_per_core }}           | N/A         | 0         | 416G SSD                   | HDR-100 InfiniBand (200Gb inter-node fabric) |
+| {{ alpine_csu_total_32_core_256GB_cpu_nodes }} Milan General CPU  | amilan         | x86_64 AMD Milan | 2       | 32            | 1            |  {{ alpine_standard_ram_per_core }}           | N/A         | 0         | 416G SSD                   | 2x25 Gb Ethernet +RoCE                       | 
 :::
 
 
@@ -72,7 +72,7 @@ Resources are requested within jobs by passing in SLURM directives, or resource 
 **General resources allows for fine-grain hardware specifications**. On Alpine the `gres` directive is _**required**_ to use GPU accelerators on GPU nodes. At a minimum, one would specify `--gres=gpu` in their job script (or on the command line when submitting a job) to specify that they would like to use a single GPU on their specified partition. One can also request multiple GPU accelerators on nodes that have multiple accelerators. Alpine GPU resources and configurations can be viewed as follows on a login node with the `slurm/alpine` module loaded:
 
 ```bash
-$ sinfo --Format Partition,Gres |grep gpu |grep -v -i amc
+$ sinfo --Format Partition,Gres |grep gpu
 ```
 
 __Examples of GPU configurations/requests__:
@@ -118,9 +118,6 @@ The available QoS for Alpine:
 | mem         | High-memory jobs           | 7 days              | 1000          | 12                 | amem only        | 
 | testing         | Used for all testing partitions   | 1 hour              | 5          |  2       | atesting,atesting_a100,atesting_mi100     | 
 | compile       | Used for acompile jobs  | 12 hours              |    -      |   1      | acompile   | 
-| amc       | QoS for nodes contributed by AMC    | 24 hours              | -         |  -       | amc  | 
-| csu       | QoS for nodes contributed by CSU    | 24 hours              |  -        |  -       | csu  | 
-| rmacc       | QoS for nodes contributed by RMACC    | 24 hours              |    -      |   -      | rmacc  | 
 | gh200       | Used for GH200 jobs<br><br>Note: this QoS is only available upon request, please submit a [support request form](https://colorado.service-now.com/req_portal?id=ucb_sc_rc_form). | 7 days             |   1       |   1      | gh200  | 
 
 __QoS examples__:
@@ -168,8 +165,6 @@ Partitions available on Alpine:
 | aa100     | GPU-enabled (3x NVIDIA A100)<sup>4</sup> | {{ alpine_total_aa100_nodes }}          | 64         |   {{ alpine_standard_ram_per_core }}        | 6.1<sup>3</sup>     | 24H, 7D     | 21 GPUs across all jobs |
 | al40      | GPU-enabled (3x NVIDIA L40)<sup>4</sup> | {{ alpine_total_al40_nodes }}          | 64         |   {{ alpine_standard_ram_per_core }}        | 6.1<sup>3</sup>     | 24H, 7D     | 6 GPUs across all jobs |
 | amem<sup>1</sup> | High-memory           | {{ alpine_total_amem_nodes }}          | 48 or 64 or 128     |  16<sup>2</sup> | 4.0           |  4H,  7D                 | 128 cores across all jobs |
-| csu       | Nodes contributed by CSU     | {{ alpine_total_csu_nodes }}         | 32 or 48   |   {{ alpine_standard_ram_per_core }}         | 1                   | 24H, 7D                 | see QoS table |
-| amc       | Nodes contributed by AMC     | {{ alpine_total_amc_nodes }}        | 32 or 48   |   {{ alpine_standard_ram_per_core }}         | 1                   | 24H, 7D                 | see QoS table |
 | acompile | AMD Milan compile nodes | {{ alpine_total_acompile_nodes }} | 64 |   {{ alpine_standard_ram_per_core }}         | N/A                   | see [acompile section](./alpine-hardware.md#acompile-usage-examples) below                 | see [acompile section](./alpine-hardware.md#atesting-usage-examples) below |
 | atesting | AMD Milan test nodes | {{ alpine_total_atesting_cpu_nodes }}; Pulls from CU amilan pool | 64 |   {{ alpine_standard_ram_per_core }}         | 0.025                   | see [atesting section](./alpine-hardware.md#atesting-usage-examples) below                 | see [atesting section](./alpine-hardware.md#atesting-usage-examples) below |
 | atesting_a100 | GPU-enabled testing node (3x NVIDIA A100 split w/ MIG) | {{ alpine_total_atesting_a100_nodes }} | 64         |   {{ alpine_standard_ram_per_core }}        | 0.025     | see [GPU atesting section](./alpine-hardware.md#gpu-atesting-usage-examples) below     | see [GPU atesting section](./alpine-hardware.md#gpu-atesting-usage-examples) below |
@@ -196,8 +191,6 @@ All users, regardless of institution, should specify partitions as follows:
 --partition=ami100
 --partition=al40
 --partition=amem
---partition=csu
---partition=amc
 ```
 
 #### Special-Purpose Partitions

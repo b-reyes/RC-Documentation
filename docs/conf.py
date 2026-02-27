@@ -61,8 +61,6 @@ myst_substitutions = {
    'alpine_total_aa100_nodes': '11',
    'alpine_total_al40_nodes': '3',
    'alpine_total_amem_nodes': '24',
-   'alpine_total_csu_nodes': '77',
-   'alpine_total_amc_nodes': '37',
    'alpine_total_acompile_nodes': '2',
    'alpine_total_atesting_cpu_nodes': '2',
    'alpine_total_atesting_a100_nodes': '1',
