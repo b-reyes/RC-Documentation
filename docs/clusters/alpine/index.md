@@ -18,7 +18,6 @@ quick-start
 alpine-hardware
 slurm_directive_ex
 allocations
-moving-from-summit
 important-notes
 condo-fairshare-and-resource-access
 ```
