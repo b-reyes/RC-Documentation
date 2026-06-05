@@ -1,0 +1,265 @@
+# Alpine Slurm Directives 
+
+## Requesting Hardware Resources
+Resources are requested within jobs by passing in SLURM directives, or resource flags, to either a job script (most common) or to the command line when submitting a job. Below are some common resource directives for Alpine (summarized then detailed):
+* **Gres (General Resources):** Specifies the number of GPUs (*required if using a GPU node*)
+* **QOS (Quality of Service):** Constrains or modifies job characteristics
+* **Partition:** Specifies node type
+
+
+
+### Partitions
+
+**Nodes with the same hardware configuration are grouped into partitions**. You specify a partition using the `--partition` SLURM directive in your job script (or at the command line when submitting an interactive job) in order for your job to run on the appropriate type of node. 
+
+```{note}
+GPU nodes require the additional `--gres` directive (see above section).
+```
+
+Partitions available on Alpine:
+
+
+| Partition | Description                  | # of nodes | cores/node | RAM/core (GB) | Billing_weight/core | Max Walltime     | Resource Limits |
+| --------- | ---------------------------- | ---------- | ---------- | ------------- | ------------------- | ------------------------ | ----------------------|
+| amilan    | AMD Milan (default)          | {{ alpine_total_amilan_nodes }}        | 32 or 48 or 64 or 128 |   {{ alpine_standard_ram_per_core }}         | 1                   | 7 days                 | see QoS table |
+| ami100    | GPU-enabled (3x AMD MI100)   | {{ alpine_total_ami100_nodes }}          | 64         |   {{ alpine_standard_ram_per_core }}         | 6.1<sup>3</sup>     | 7 days                  | 15 GPUs across all jobs |
+| aa100     | GPU-enabled (3x NVIDIA A100)<sup>4</sup> | {{ alpine_total_aa100_nodes }}          | 64         |   {{ alpine_standard_ram_per_core }}        | 6.1<sup>3</sup>     | 7 days      | 21 GPUs across all jobs |
+| al40      | GPU-enabled (3x NVIDIA L40)<sup>4</sup> | {{ alpine_total_al40_nodes }}          | 64         |   {{ alpine_standard_ram_per_core }}        | 6.1<sup>3</sup>     | 7 days      | 6 GPUs across all jobs |
+| amem<sup>1</sup> | High-memory           | {{ alpine_total_amem_nodes }}          | 48 or 64 or 128     |  16<sup>2</sup> | 4.0           |  7 days                | see QoS table |
+| acompile | AMD Milan compile nodes | {{ alpine_total_acompile_nodes }} | 64 |   {{ alpine_standard_ram_per_core }}         | N/A                   | see [acompile section](./alpine-hardware.md#acompile-usage-examples) below                 | see [acompile section](./alpine-hardware.md#atesting-usage-examples) below |
+| atesting | AMD Milan test nodes | {{ alpine_total_atesting_cpu_nodes }}; Pulls from CU amilan pool | 64 |   {{ alpine_standard_ram_per_core }}         | 0.025                   | see [atesting section](./alpine-hardware.md#atesting-usage-examples) below                 | see [atesting section](./alpine-hardware.md#atesting-usage-examples) below |
+| atesting_a100 | GPU-enabled testing node (3x NVIDIA A100 split w/ MIG) | {{ alpine_total_atesting_a100_nodes }} | 64         |   {{ alpine_standard_ram_per_core }}        | 0.025     | see [GPU atesting section](./alpine-hardware.md#gpu-atesting-usage-examples) below     | see [GPU atesting section](./alpine-hardware.md#gpu-atesting-usage-examples) below |
+| atesting_mi100 | GPU-enabled testing nodes (3x AMD MI100) | {{ alpine_total_atesting_mi100_nodes }} | 64         |   {{ alpine_standard_ram_per_core }}        | 0.025     | see [GPU atesting section](./alpine-hardware.md#gpu-atesting-usage-examples) below     | see [GPU atesting section](./alpine-hardware.md#gpu-atesting-usage-examples) below |
+| gh200 | NVIDIA Grace-Hopper (GH200) nodes<br><br>Note: this partition is only available upon request, please submit a [support request form](https://colorado.service-now.com/req_portal?id=ucb_sc_rc_form). | {{ alpine_ucb_total_gh200_gpu_nodes }} | 72        |   6.65       | Billed at twice the rate of our A100s   | 7 days     | see QoS table |
+
+```{important}
+**Partition table footnotes:** 
+
+
+<sup>1</sup>The `amem` partition requires the use of either the `mem-normal` or `mem-long` QOS. These QOS require that each job request 256GB of RAM or more.
+
+<sup>2</sup>The `amem` partition has a mixture of nodes with 48, 64, and 128 cores.  Nodes with 48 and 64 cores have 1 TB of RAM; nodes with 128 cores have 2 TB of RAM.  The default RAM-per-requested core on the `amem` partition is 15,927 MB, which is configured such that if you request all 64 (128) cores on a 64-core (128-core) `amem` node, you will receive roughly 1,000,000 MB of RAM (i.e., the full ~1 TB available). If you request all 48 cores on a 48-core node, by default you will receive 764,496 MB of RAM, which is less than the 1 TB available. If you require more RAM than the default of 15,927 MB per-requested-core, employ the `--mem` flag in your job script and specify the amount of RAM you need, in MB. For example, to request all of the RAM on a node, use "--mem=1000000M".   
+
+<sup>3</sup>On the GPU partitions, `ami100`, `aa100`, and `al40`, the _billing_weight_ value of 6.1/core is an aggregate estimate. In practice, users are billed 1.0 for each core they request, and 108.2 for each GPU they request. For example, if a user requests all 64 cores and all three GPUs for one hour, they will be billed (1.0 * 64) + (108.2 * 3)=389 SUs.
+
+<sup>4</sup>NVIDIA A100 and L40 GPUs only support CUDA versions >11.x
+```
+
+All users, regardless of institution, should specify partitions as follows:
+```bash
+--partition=amilan
+--partition=aa100
+--partition=ami100
+--partition=al40
+--partition=amem
+```
+
+#### Special-Purpose Partitions
+
+To help users test out their workflows, CURC provides several special-purpose partitions on Alpine. These partitions enable users to quickly test or compile code on CPU and GPU compute nodes. To ensure equal access to these special-purpose partitions, the amount of resources (such as CPUs, GPUs, and runtime) are limited. 
+
+```{important}
+Compiling and testing partitions are, as their name implies, only meant for compiling code and testing workflows. They are not to be used outside of compiling or testing. Please utilize the appropriate partitions when running code. 
+```
+
+##### `atesting` usage examples:
+
+`atesting` provides access to limited resources for the purpose of verifying workflows and MPI jobs. Users are able to request up to 2 CPU nodes (8 cores per node) for a maximum runtime of 1 hour (default  1 hour) and 16 CPUs. Users who need GPU nodes to test workflows should use the appropriate GPU testing partitions (`atesting_a100` or `atesting_mi100`) instead of `atesting`.
+
+(tabset-ref-atesting-use)=
+`````{tab-set}
+:sync-group: tabset-atesting-use
+
+````{tab-item} Example 1
+:sync: atesting-use-ex1
+
+**Request one core per node for 10 minutes.**
+
+```bash
+sinteractive --partition=atesting --ntasks=2 --ntasks-per-node=1 --nodes=2 --qos=testing --time=00:10:00
+```
+
+````
+
+```` {tab-item} Example 2
+:sync: atesting-use-ex2
+
+**Request 4 cores for 30 minutes.**
+
+```bash
+sinteractive --partition=atesting --ntasks=4 --nodes=1 --qos=testing --time=00:30:00 
+```
+
+````
+
+```` {tab-item} Example 3
+:sync: atesting-use-ex3
+
+**Request 2 cores each from 2 nodes for 10 minutes - a good option for testing MPI jobs.**
+
+```bash
+sinteractive --partition=atesting --ntasks=4 --ntasks-per-node=2 --nodes=2 --qos=testing --time=00:10:00
+```
+
+````
+`````
+
+##### GPU `atesting` usage examples:
+
+`atesting_a100` and `atesting_mi100` provide access to limited GPU resources for the purpose of verifying GPU workflows and building GPU-accelerated applications. For the `atesting_mi100` partition, users can request up to 3 GPUs and all associated CPU cores (64 max) from a single node for up to one hour. Due to limitations with MIG (see below), we limit users to 1 GPU (with 20 GB of VRAM) and at most 10 CPU cores on the `atesting_a100` partition.  Currently there is no testing partition for the L40 GPUs, however most workflows that successfully test on the `atesting_a100` partition will work on the `al40` partition.
+
+```{important}
+
+The `atesting_a100` partition utilizes NVIDIA's [Multi-Instance GPU (MIG)](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html) feature, which can "slice" GPUs into multiple GPU instances. These GPU instances can be treated as a single GPU. The increase in available GPUs, and in effect increase in GPU access, provided by MIG does come with certain limitations. One important limitation is that MIG does not allow for multiple GPU instances to communicate with each other. This is the reason we limit users to just 1 GPU on the `atesting_a100` partition. For more information on limitations of MIG, please see NVIDIA's MIG [Application Considerations](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations) documentation. 
+```
+
+(tabset-ref-gpu-atesting-use)=
+`````{tab-set}
+:sync-group: tabset-gpu-atesting-use
+
+````{tab-item} Example 1
+:sync: gpu-atesting-use-ex1
+
+**Request 1 A100 MIG slice with 10 CPU cores for 30 minutes.**
+
+```bash
+sinteractive --partition=atesting_a100 --gres=gpu:1 --ntasks=10 --nodes=1 --qos=testing --time=00:30:00 
+```
+
+````
+
+```` {tab-item} Example 2
+:sync: gpu-atesting-use-ex2
+
+**Request 1 MI100 GPU with 1 CPU core for one hour.**
+
+```bash
+sinteractive --partition=atesting_mi100 --gres=gpu:1 --ntasks=1 --nodes=1 --qos=testing --time=00:60:00
+```
+
+````
+
+`````
+
+##### `acompile` usage examples:
+
+`acompile` provides near-immediate access to limited resources for the purpose of viewing the module stack, verifying non-MPI jobs, and compiling software. Users can request up to 4 CPU cores (but no GPUs) for a maximum runtime of 12 hours. The partition is accessed with the `acompile` command. Users who need GPU nodes to compile software should use Slurm's `sinteractive` command with the appropriate GPU partition (`ami100` or `aa100`) instead of `acompile`.
+
+(tabset-ref-acompile-use)=
+`````{tab-set}
+:sync-group: tabset-acompile-use
+
+````{tab-item} Example 1
+:sync: acompile-use-ex1
+
+**Get usage information for `acompile`.**
+
+```bash
+acompile --help
+```
+
+````
+
+```` {tab-item} Example 2
+:sync: acompile-use-ex2
+
+**Request 2 CPU cores for 2 hours.**
+
+```bash
+acompile --ntasks=2 --time=02:00:00
+```
+
+````
+
+`````
+
+
+
+
+
+
+
+### General Resources (gres)
+
+**General resources allows for fine-grain hardware specifications**. On Alpine the `gres` directive is _**required**_ to use GPU accelerators on GPU nodes. At a minimum, one would specify `--gres=gpu` in their job script (or on the command line when submitting a job) to specify that they would like to use a single GPU on their specified partition. One can also request multiple GPU accelerators on nodes that have multiple accelerators. Alpine GPU resources and configurations can be viewed as follows on a login node with the `slurm/alpine` module loaded:
+
+```bash
+$ sinfo --Format Partition,Gres |grep gpu
+```
+
+__Examples of GPU configurations/requests__:
+
+(tabset-ref-ex-gpu-conf-req)=
+`````{tab-set}
+:sync-group: tabset-ex-gpu-conf-req
+
+````{tab-item} Single GPU
+:sync: ex-gpu-conf-req-single-gpu
+
+**Request a single GPU accelerator.**
+
+```bash
+--gres=gpu
+```
+
+````
+
+```` {tab-item} Multiple GPUs
+:sync: ex-gpu-conf-req-multiple-gpu
+
+**Request multiple (in this case 3) GPU accelerators.**
+
+```bash
+--gres=gpu:3
+```
+
+````
+
+`````
+
+### Quality of Service (qos)
+
+**Quality of Service or QoS is used to constrain or modify the characteristics that a job can have.** For example, by selecting the `long` QoS, a user can place the job in a **lower priority queue** with a max wall time increased from 24 hours to 7 days.
+
+The available QoS for Alpine:
+
+| QOS name    | Description                | Max walltime    | Max jobs/user | Max hardware/user        | Valid Partitions | 
+| ----------- | -------------------------- | --------------- | ------------- | ------------------ | ---------------- |
+| normal | Standard QoS for non-testing partitions                    | 1 day              | 1000          | 128 nodes                | amilan,aa100,ami100  |
+| long | Longer wall times          | 7 days              | 200           | 20 nodes               | amilan,aa100,ami100              | 
+| mem-normal | High-memory jobs           | 24 hours              | 1000          | 256 CPU cores                | amem        | 
+| mem-long | High-memory jobs           | 7 days              | 200          | 185 CPU cores                | amem       | 
+| testing | Used for all testing partitions   | 1 hour              | 5          |  2 nodes      | atesting,atesting_a100,atesting_mi100     | 
+| compile | Used for acompile jobs  | 12 hours              |    -      |   1 node      | acompile   | 
+| gh200 | Used for GH200 jobs<br><br>Note: this QoS is only available upon request, please submit a [support request form](https://colorado.service-now.com/req_portal?id=ucb_sc_rc_form). | 7 days             |   1       |   1 node      | gh200  | 
+
+__QoS examples__:
+
+(tabset-ref-ex-qos-req)=
+`````{tab-set}
+:sync-group: tabset-ex-qos-req
+
+````{tab-item} Requesting the normal partition 
+:sync: ex-qos-req-normal-partition
+
+```bash
+--qos=normal
+```
+
+````
+
+```` {tab-item} Requesting the long partition
+:sync: ex-qos-req-long-partition
+
+```bash
+--qos=long
+```
+
+````
+
+`````
+
+
+
+Alpine is jointly funded by the University of Colorado Boulder, the University of Colorado Anschutz, Colorado State University, and the National Science Foundation (award 2201538).
+

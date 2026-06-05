@@ -1,0 +1,107 @@
+digraph slurm_decision_flow {
+
+    rankdir=TB;
+    splines=ortho;
+    nodesep=0.5;
+    ranksep=0.7;
+
+    graph [
+        fontname="Helvetica",
+        fontsize=24,
+        labelloc="t",
+        label="Slurm Directives: Think Outside → In"
+    ];
+
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Helvetica",
+        fontsize=14,
+        margin="0.15,0.10"
+    ];
+
+    edge [
+        penwidth=2
+    ];
+
+    account [
+        fillcolor="#d9d9d9",
+        label=<
+            <TABLE BORDER="0" CELLBORDER="0">
+                <TR><TD><B>1. Account</B></TD></TR>
+                <TR><TD ALIGN="LEFT">Which project pays for the job?</TD></TR>
+                <TR><TD><FONT POINT-SIZE="11">--account=&lt;name&gt;</FONT></TD></TR>
+            </TABLE>
+        >
+    ];
+
+    partition [
+        fillcolor="#ff6b6b",
+        label=<
+            <TABLE BORDER="0" CELLBORDER="0">
+                <TR><TD><B>2. Partition</B></TD></TR>
+                <TR><TD ALIGN="LEFT">Which cluster or queue should I use?</TD></TR>
+                <TR><TD><FONT POINT-SIZE="11">--partition=&lt;name&gt;</FONT></TD></TR>
+            </TABLE>
+        >
+    ];
+
+    qos_time [
+        fillcolor="#22b8cf",
+        label=<
+            <TABLE BORDER="0" CELLBORDER="0">
+                <TR><TD><B>3. Scheduling Policy</B></TD></TR>
+                <TR><TD ALIGN="LEFT">What priority and runtime do I need?</TD></TR>
+                <TR><TD><FONT POINT-SIZE="11">--qos=&lt;name&gt;</FONT></TD></TR>
+                <TR><TD><FONT POINT-SIZE="11">--time=HH:MM:SS</FONT></TD></TR>
+            </TABLE>
+        >
+    ];
+
+    resources [
+        fillcolor="#51cf66",
+        label=<
+            <TABLE BORDER="0" CELLBORDER="0">
+                <TR><TD><B>4. Resources</B></TD></TR>
+                <TR><TD ALIGN="LEFT">What compute resources do I need?</TD></TR>
+                <TR><TD><FONT POINT-SIZE="11">--nodes</FONT></TD></TR>
+                <TR><TD><FONT POINT-SIZE="11">--ntasks</FONT></TD></TR>
+                <TR><TD><FONT POINT-SIZE="11">--cpus-per-task</FONT></TD></TR>
+                <TR><TD><FONT POINT-SIZE="11">--gres</FONT></TD></TR>
+            </TABLE>
+        >
+    ];
+
+    submit [
+        fillcolor="#f8f9fa",
+        label=<
+            <TABLE BORDER="0" CELLBORDER="0">
+                <TR><TD><B>Submit</B></TD></TR>
+                <TR><TD><FONT FACE="Courier">sbatch job.sh</FONT></TD></TR>
+            </TABLE>
+        >
+    ];
+
+    account   -> partition;
+    partition -> qos_time;
+    qos_time  -> resources;
+    resources -> submit;
+
+    explanation [
+        shape=note,
+        fillcolor="#fff3bf",
+        fontsize=12,
+        label="Each step narrows the choices available at the next step."
+    ];
+
+    explanation -> partition [
+        style=dashed,
+        arrowhead=none
+    ];
+
+    {
+        rank=same;
+        explanation;
+        partition;
+    }
+}
