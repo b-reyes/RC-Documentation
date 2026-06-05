@@ -66,6 +66,7 @@ open_ondemand/index
 :maxdepth: 1
 :caption: Running Jobs
 
+running-jobs/overview
 running-jobs/batch-jobs
 running-jobs/interactive-jobs
 running-jobs/running-apps-with-jobs
