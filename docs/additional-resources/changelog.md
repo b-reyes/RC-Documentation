@@ -20,4 +20,5 @@ The following is a high-level list of notable changes made to CU Research Comput
 | Jun | Retired `mem` QoS, introduced `mem-normal` and `mem-long` QoS | Affects user job submission parameters |
 | Jul | Created the QoS `gpu-normal`, `gpu-long`, and `gpu-testing`. Replaced all GPU partition QoS with these new QoS. Removed the `atesting_a100` and `atesting_mi100` partitions. | Affects user job submission parameters and max GPU limits per user and QoS |
 | Aug | Renamed the `amilan` partition to `acpu` and the `normal` and `long` QoS to `cpu-normal` and `cpu-long`, respectively. Added 17 CPU-only nodes to the `acpu` partition, 8 nodes with 4 RTX Pro 6000 GPUs each to the new `artxpro6000` partition, and 8 nodes with 4 H200 GPUs each to the new `ah200` partition. |  Increased availability of CPU and GPU resources and affects user job submission parameters |
+| Sep | Added job submission checks that ensure the `--oversubscribe` Slurm directive is only used with the `acompile` and `ahub` partitions. | Affects user job submission parameters. |
 ::::
