@@ -21,6 +21,7 @@ Click the name of a training to view more details and register!
 - [Lunch-and-Learn: Supercharge Your Python with Dask (A Quick Byte)](https://calendar.colorado.edu/event/lunch-n-learn-supercharge-your-python-with-dask-a-quick-byte) - **September 8, 11am, Virtual (Zoom)**
 - [Applied Containerization for Machine Learning in HPC (A Short Course)](https://calendar.colorado.edu/event/applied-containerization-for-machine-learning-in-hpc-a-short-course) - **September 9, 11am, Virtual (Zoom)**
 - [Lunch-and-Learn: Sharing Data Across Institutions with PetaLibrary and Globus (A Quick Byte)](https://calendar.colorado.edu/event/lunch-n-learn-sharing-data-across-institutions-with-petalibrary-and-globus-a-quick-byte) - **September 11, 11am, Virtual (Zoom)**
+- [AWS New Accounts Onboarding Session](https://calendar.colorado.edu/event/aws-new-accounts-onboarding-session) - **September 16, 2:00pm, Hybrid (Norlin Library E206/Zoom)**
 - [Workflow Management with persistence1 (A Primer)](https://calendar.colorado.edu/event/workflow-management-with-persistence1-a-primer) - **September 17, 1:30pm, Virtual (Zoom)**
 - [Four Ways to GPU Computing (NVIDIA-led Primer)](https://calendar.colorado.edu/event/four-ways-to-gpu-computing-nvidia-led-primer-940) - **September 21, 1pm, Virtual (Zoom)**
 
@@ -60,6 +61,9 @@ Click the name of a training to view more details and register!
 - [Setting up LLMs on CURC Resources (A Short Course)](https://calendar.colorado.edu/event/setting-up-llms-on-curc-resources-a-short-course) - **October 1, 11am, Virtual (Zoom)**
 - [AI Data Readiness Workshop (A Primer)](https://calendar.colorado.edu/event/ai-data-readiness-workshop-a-primer) - **November 5, 10am, Virtual (Zoom)**
 
+### **Cloud**
+- [AWS New Accounts Onboarding Session](https://calendar.colorado.edu/event/aws-new-accounts-onboarding-session) - **September 16, 2:00pm, Hybrid (Norlin Library E206/Zoom)**
+
 ````
 
 ````{tab-item} By Difficulty
@@ -70,6 +74,7 @@ Click the name of a training to view more details and register!
 - [Alpine New User Seminar (A Primer)](https://calendar.colorado.edu/event/alpine-new-user-seminar-a-primer) - **Wednesday, August 26, 10am, Virtual (Zoom)**
 - [Getting Started with Research Computing: From Command Line to Job Scheduling (A Short Course)](https://calendar.colorado.edu/event/getting-started-with-research-computing-from-command-line-to-job-scheduling-a-short-course-6841) - **September 2, 11am, Virtual (Zoom)**
 - [Lunch-and-Learn: Sharing Data Across Institutions with PetaLibrary and Globus (A Quick Byte)](https://calendar.colorado.edu/event/lunch-n-learn-sharing-data-across-institutions-with-petalibrary-and-globus-a-quick-byte) - **September 11, 11am, Virtual (Zoom)**
+- [AWS New Accounts Onboarding Session](https://calendar.colorado.edu/event/aws-new-accounts-onboarding-session) - **September 16, 2:00pm, Hybrid (Norlin Library E206/Zoom)**
 
 ### **Intermediate**
 - [Lunch-and-Learn: [How to request GPUs on Alpine](https://calendar.colorado.edu/event/alpine-new-user-seminar-a-primer](https://calendar.colorado.edu/event/curc-lunch-and-learn-how-to-request-gpus-on-alpine) - **Friday, August 21, 12pm, Virtual (Zoom)**
