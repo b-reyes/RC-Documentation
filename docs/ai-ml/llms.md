@@ -128,6 +128,10 @@ module load uv
 source $CURC_UV_ENV_DIR/ollama-python-api-env/bin/activate
 ``` 
 
+:::{seealso}
+Do you prefer a Graphical User Interface when interacting with Ollama provided LLMs? Checkout our Open OnDemand [LLM Chat Interface](../open_ondemand/llm_chat_interface.md)!
+:::
+
 ````
 
 ````{tab-item} Self-install instructions
