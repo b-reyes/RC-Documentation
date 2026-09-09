@@ -107,7 +107,7 @@ In this section, we provide instructions for obtaining access to common LLM fram
 
 In this tab, we provide instructions for using our system installed Ollama. Although these instructions greatly simplify the steps needed to use Ollama, the system installed Ollama or provided API may not fit your needs. If you need to install a different version of Ollama or need to customize the provided environment, you will need to follow the instructions in the [Self-install instructions tab](?tabset-ollama=ollama-indepth#tabset-ref-ollama){.external}. 
 
-To begin, we first need to jump on an NVIDIA GPU compute node (i.e. submitting a job to one of our [NVIDIA GPU partitions](../clusters/alpine/alpine-hardware.md#partitions)). For the purposes of this tutorial, we will start an interactive session on one of our testing A100 GPUs.
+To begin, we first need to jump on an NVIDIA GPU compute node (i.e. submitting a job to one of our [NVIDIA GPU partitions](../clusters/alpine/alpine-hardware.md#partitions)). For this tutorial, we’ll start an interactive session on one of our A100 GPUs designated for testing.
 ```
 sinteractive --partition=aa100 --qos=gpu-testing --nodes=1 --gres=gpu:a100_3g.20gb:1 --ntasks=10 --time=01:00:00
 ```
@@ -169,7 +169,7 @@ After execution, these commands should create a `bin` and `lib` directory contai
 
 ## Setting up the Ollama install 
 
-Now that we have Ollama installed, we need to start up an Ollama server on an NVIDIA GPU compute node (i.e. submitting a job to one of our [NVIDIA GPU partitions](../clusters/alpine/alpine-hardware.md#partitions)). We will then be able to interact with Ollama and our LLMs from the command line. For the purposes of this tutorial, we will start an interactive session on one of our testing A100 GPUs:
+Now that we have Ollama installed, we need to start up an Ollama server on an NVIDIA GPU compute node (i.e. submitting a job to one of our [NVIDIA GPU partitions](../clusters/alpine/alpine-hardware.md#partitions)). We will then be able to interact with Ollama and our LLMs from the command line. For this tutorial, we’ll start an interactive session on one of our A100 GPUs designated for testing:
 ```
 sinteractive --partition=aa100 --qos=gpu-testing --nodes=1 --gres=gpu:a100_3g.20gb:1 --ntasks=10 --time=01:00:00
 ```
@@ -304,7 +304,7 @@ This of course is just a simple example showing how one can query Ollama models 
 
 In this tab, we provide instructions for using our system installed Transformers. Although these instructions greatly simplify the steps needed to use Transformers, the system installed Transformers and associated libraries may not fit your needs. If you need to install a different version or need to customize the provided environment, you will need to follow the instructions in the [Self-install instructions tab](?tabset-hf-transformers=hf-transformers-indepth#tabset-ref-hf-transformers){.external}. 
 
-To begin, we first need to jump on an NVIDIA GPU compute node (i.e. submitting a job to one of our [NVIDIA GPU partitions](../clusters/alpine/alpine-hardware.md#partitions)). For the purposes of this tutorial, we will start an interactive session on one of our testing A100 GPUs.
+To begin, we first need to jump on an NVIDIA GPU compute node (i.e. submitting a job to one of our [NVIDIA GPU partitions](../clusters/alpine/alpine-hardware.md#partitions)). For this tutorial, we’ll start an interactive session on one of our A100 GPUs designated for testing.
 ```
 sinteractive --partition=aa100 --qos=gpu-testing --nodes=1 --gres=gpu:a100_3g.20gb:1 --ntasks=10 --time=01:00:00
 ```
@@ -402,7 +402,7 @@ After this installation completes, you will then have access to your installed m
 
 In this section, we assume that you have installed all necessary libraries and the model you would like to run (or are using our module and provided models). Additionally, we assume you are on an NVIDIA GPU compute node. Please note that the below instructions are just one possible way to run an LLM using Transformers. There are also other methods, such as [Pipelines](https://huggingface.co/docs/transformers/en/main_classes/pipelines#pipelines) that exist. 
 
-Now that we are ready to run our LLM, there is one last important consideration we need to make before running the model: whether to quantize the LLM. Many models provided on Hugging Face are not quantized, and for this reason, are very large. Depending on the GPU you are using, this can be a big problem because you may not have enough space on the GPU's VRAM. For example, our testing A100 GPU only provides 20 GB of GPU memory (VRAM), which is often too small for medium-sized models that have not been quantized. When this is the case, we often want to perform [Quantization](https://huggingface.co/docs/transformers/v4.56.2/quantization/overview) to reduce the memory footprint. Below we provide an example where we do not utilize quantization and one where we do.  
+Now that we are ready to run our LLM, there is one last important consideration we need to make before running the model: whether to quantize the LLM. Many models provided on Hugging Face are not quantized, and for this reason, are very large. Depending on the GPU you are using, this can be a big problem because you may not have enough space on the GPU's VRAM. For example, our A100 GPU designated for testing only provides 20 GB of GPU memory (VRAM), which is often too small for medium-sized models that have not been quantized. When this is the case, we often want to perform [Quantization](https://huggingface.co/docs/transformers/v4.56.2/quantization/overview) to reduce the memory footprint. Below we provide an example where we do not utilize quantization and one where we do.  
 
 
 (tabset-ref-transformers-run)=
@@ -412,7 +412,7 @@ Now that we are ready to run our LLM, there is one last important consideration 
 ````{tab-item} No quantization
 :sync: transformers-run-no-quant
 
-In this tab, we run our `gpt-oss-20b` model without quantization. Quantization is not needed for this model, as by default, the model obtained from Hugging Face has been quantized using the MXFP4 format. Additionally, it nicely fits on one of our testing A100 GPUs. To run the `gpt-oss-20b` model without quantization let's create the following script named `transformers_run_no_quant.py`:
+In this tab, we run our `gpt-oss-20b` model without quantization. Quantization is not needed for this model, as by default, the model obtained from Hugging Face has been quantized using the MXFP4 format. Additionally, it fits comfortably on one of our A100 GPUs designated for testing. To run the `gpt-oss-20b` model without quantization let's create the following script named `transformers_run_no_quant.py`:
 ```python
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import os 
@@ -471,7 +471,7 @@ of salt to amplify
 ````{tab-item} Applying Quantization 
 :sync: transformers-run-quant
 
-In this tab, we run our `Llama-3.1-8B-Instruct` model with quantization. Quantization is needed for this model if we want to run it on the testing A100 GPUs. Here we will utilize QLoRA or 4-bit quantization. To run `Llama-3.1-8B-Instruct` with quantization, let's create the following script named `transformers_run_quant.py`:
+In this tab, we run our `Llama-3.1-8B-Instruct` model with quantization. Quantization is needed for this model if we want to run it on one of our A100 GPUs designated for testing. Here we will utilize QLoRA or 4-bit quantization. To run `Llama-3.1-8B-Instruct` with quantization, let's create the following script named `transformers_run_quant.py`:
 
 ```python
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
